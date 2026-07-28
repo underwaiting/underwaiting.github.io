@@ -426,12 +426,6 @@
         // Форма обратного звонка -> отправка заявки в Telegram
         const callbackForm = document.getElementById('callbackForm');
         if (callbackForm) {
-            // 1. Напишите боту @BotFather команду /newbot и получите TELEGRAM_BOT_TOKEN
-            // 2. Напишите своему новому боту любое сообщение, затем откройте
-            //    https://api.telegram.org/bot<ВАШ_ТОКЕН>/getUpdates и найдите "chat":{"id": ...} — это TELEGRAM_CHAT_ID
-            const TELEGRAM_BOT_TOKEN = '8922036011:AAHOSMiFlnGxktzT2jgORVTXLrT5rIB3rMk';
-            const TELEGRAM_CHAT_ID = '-5132075287';
-
             // Маска телефона: только цифры, +7 всегда в начале
             const phoneInput = document.getElementById('phoneInput');
             function formatPhone(digits) {
@@ -458,42 +452,44 @@
             });
 
             callbackForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const status = document.getElementById('callbackStatus');
-                const name = callbackForm.name.value.trim();
-                const phone = callbackForm.phone.value.trim();
-                const phoneDigits = phone.replace(/\D/g, '').replace(/^7|^8/, '');
-                if (!name || phoneDigits.length !== 10) {
-                    status.style.color = '#c0392b';
-                    status.textContent = '⚠️ Заполните имя и укажите полный номер телефона.';
-                    return;
-                }
+    e.preventDefault();
+    const status = document.getElementById('callbackStatus');
+    const name = callbackForm.name.value.trim();
+    const phone = callbackForm.phone.value.trim();
+    const phoneDigits = phone.replace(/\D/g, '').replace(/^7|^8/, '');
+    
+    if (!name || phoneDigits.length !== 10) {
+        status.style.color = '#c0392b';
+        status.textContent = '⚠️ Заполните имя и укажите полный номер телефона.';
+        return;
+    }
 
-                const submitBtn = callbackForm.querySelector('button[type="submit"]');
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Отправка...';
-                status.textContent = '';
+    const submitBtn = callbackForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправка...';
+    status.textContent = '';
 
-                const text = `🚚 Новая заявка с сайта!\nИмя: ${name}\nТелефон: ${phone}`;
-                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(text)}`;
-
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (!data.ok) throw new Error('Telegram API error');
-                        status.style.color = 'var(--secondary)';
-                        status.textContent = '✅ Заявка отправлена! Перезвоним в течение 5 минут.';
-                        callbackForm.reset();
-                    })
-                    .catch(() => {
-                        status.style.color = '#c0392b';
-                        status.textContent = '⚠️ Не удалось отправить. Позвоните нам: +7 987 139-81-47';
-                    })
-                    .finally(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Перезвоните мне';
-                    });
-            });
+    fetch('/api/telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.ok) throw new Error('Telegram API error');
+        status.style.color = 'var(--secondary)';
+        status.textContent = '✅ Заявка отправлена! Перезвоним в течение 5 минут.';
+        callbackForm.reset();
+    })
+    .catch(() => {
+        status.style.color = '#c0392b';
+        status.textContent = '⚠️ Не удалось отправить. Позвоните нам: +7 987 139-81-47';
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Перезвоните мне';
+    });
+});
         }
     });
 </script>
