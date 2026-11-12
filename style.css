@@ -6,7 +6,7 @@
     --accent-hover: #e55a2b;
     --secondary: #2a7d4f;
     --text: #333;
-    --light: #f8f9fa;
+    --light: #f4f4f4;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -396,7 +396,7 @@ header {
 }
 
 .testimonial-card {
-    background: var(--light);
+    background: #F4F4F4FF;
     border-radius: 16px;
     padding: 30px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.06);
@@ -436,7 +436,7 @@ header {
 /* Gallery Section */
 .gallery {
     padding: 100px 0;
-    background: var(--light);
+    background: linear-gradient(135deg, var(--secondary), #1f5f3d);
 }
 
 .gallery-container {

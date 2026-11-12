@@ -3,23 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Газель + Манипулятор Уфа | Грузоперевозки и переезды</title>
+    <title>Газель и Манипулятор Уфа | Грузоперевозки и переезды</title>
     <meta name="description" content="Газель с манипулятором и грузчиками в Уфе. Переезды, доставка стройматериалов, вывоз мусора.">
     <link href="style.css" rel="stylesheet">
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110559211', 'ym');
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110262523', 'ym');
 
-    ym(110559211, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+        ym(110262523, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/110559211" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <meta name="yandex-verification" content="86120a58d59d8cd5" />
-<!-- /Yandex.Metrika counter -->
+    <noscript><div><img src="https://mc.yandex.ru/watch/110262523" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Газель Уфа — грузоперевозки и манипулятор",
+  "image": "https://gazelufa-d61.pages.dev/assets/img_1.png",
+  "telephone": ["+79871398147", "+79173522218"],
+  "url": "https://gazelufa-d61.pages.dev",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Уфа",
+    "addressRegion": "Республика Башкортостан",
+    "addressCountry": "RU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "54.7351",
+    "longitude": "55.9587"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    ],
+    "opens": "07:00",
+    "closes": "23:00"
+  },
+  "priceRange": "₽₽",
+  "description": "Грузоперевозки газелью и манипулятором в Уфе и по Башкирии. Переезды, доставка стройматериалов, вывоз мусора."
+}
+</script>
 </head>
 <body>
 
@@ -129,28 +160,10 @@
         </div>
     </section>
 
-    <!-- Обратный звонок -->
-    <section class="callback" id="callback">
-        <div class="container">
-            <div class="callback-box">
-                <div class="callback-text">
-                    <h2>Закажите обратный звонок</h2>
-                    <p>Оставьте имя и телефон — перезвоним в течение 5 минут и бесплатно рассчитаем стоимость заказа.</p>
-                </div>
-                <form class="callback-form" id="callbackForm">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                    <input type="tel" name="phone" id="phoneInput" placeholder="+7 (___) ___-__-__" maxlength="18" required>
-                    <button type="submit" class="cta-button">Перезвоните мне</button>
-                    <p class="callback-status" id="callbackStatus"></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Галерея работ -->
     <section class="gallery">
         <div class="container">
-            <h2 class="section-title">Фото как мы выполняем заказы</h2>
+            <h2 class="section-title" style="color: white;">Фото как мы выполняем заказы</h2>
             <div class="gallery-container">
                 <div class="gallery-slider" id="gallerySlider">
                     <div class="gallery-slide">
@@ -426,6 +439,12 @@
         // Форма обратного звонка -> отправка заявки в Telegram
         const callbackForm = document.getElementById('callbackForm');
         if (callbackForm) {
+            // 1. Напишите боту @BotFather команду /newbot и получите TELEGRAM_BOT_TOKEN
+            // 2. Напишите своему новому боту любое сообщение, затем откройте
+            //    https://api.telegram.org/bot<ВАШ_ТОКЕН>/getUpdates и найдите "chat":{"id": ...} — это TELEGRAM_CHAT_ID
+            const TELEGRAM_BOT_TOKEN = '8922036011:AAHOSMiFlnGxktzT2jgORVTXLrT5rIB3rMk';
+            const TELEGRAM_CHAT_ID = '-5132075287';
+
             // Маска телефона: только цифры, +7 всегда в начале
             const phoneInput = document.getElementById('phoneInput');
             function formatPhone(digits) {
@@ -452,44 +471,42 @@
             });
 
             callbackForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const status = document.getElementById('callbackStatus');
-    const name = callbackForm.name.value.trim();
-    const phone = callbackForm.phone.value.trim();
-    const phoneDigits = phone.replace(/\D/g, '').replace(/^7|^8/, '');
-    
-    if (!name || phoneDigits.length !== 10) {
-        status.style.color = '#c0392b';
-        status.textContent = '⚠️ Заполните имя и укажите полный номер телефона.';
-        return;
-    }
+                e.preventDefault();
+                const status = document.getElementById('callbackStatus');
+                const name = callbackForm.name.value.trim();
+                const phone = callbackForm.phone.value.trim();
+                const phoneDigits = phone.replace(/\D/g, '').replace(/^7|^8/, '');
+                if (!name || phoneDigits.length !== 10) {
+                    status.style.color = '#c0392b';
+                    status.textContent = '⚠️ Заполните имя и укажите полный номер телефона.';
+                    return;
+                }
 
-    const submitBtn = callbackForm.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Отправка...';
-    status.textContent = '';
+                const submitBtn = callbackForm.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Отправка...';
+                status.textContent = '';
 
-    fetch('/api/telegram', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (!data.ok) throw new Error('Telegram API error');
-        status.style.color = 'var(--secondary)';
-        status.textContent = '✅ Заявка отправлена! Перезвоним в течение 5 минут.';
-        callbackForm.reset();
-    })
-    .catch(() => {
-        status.style.color = '#c0392b';
-        status.textContent = '⚠️ Не удалось отправить. Позвоните нам: +7 987 139-81-47';
-    })
-    .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Перезвоните мне';
-    });
-});
+                const text = `🚚 Новая заявка с сайта!\nИмя: ${name}\nТелефон: ${phone}`;
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(text)}`;
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.ok) throw new Error('Telegram API error');
+                        status.style.color = 'var(--secondary)';
+                        status.textContent = '✅ Заявка отправлена! Перезвоним в течение 5 минут.';
+                        callbackForm.reset();
+                    })
+                    .catch(() => {
+                        status.style.color = '#c0392b';
+                        status.textContent = '⚠️ Не удалось отправить. Позвоните нам: +7 987 139-81-47';
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Перезвоните мне';
+                    });
+            });
         }
     });
 </script>
